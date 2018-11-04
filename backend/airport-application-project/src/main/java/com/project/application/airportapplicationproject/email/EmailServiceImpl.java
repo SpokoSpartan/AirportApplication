@@ -5,9 +5,6 @@ import java.io.File;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -23,6 +20,7 @@ public class EmailServiceImpl implements EmailService {
 
     public JavaMailSender emailSender;
 
+    @Override
     public void sendSimpleMessage(String to, String subject, String text) {
         try {
             

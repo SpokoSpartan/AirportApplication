@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @EqualsAndHashCode
 @NoArgsConstructor
-public class Worker {
+public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
