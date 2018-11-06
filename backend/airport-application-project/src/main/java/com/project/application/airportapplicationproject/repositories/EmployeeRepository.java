@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.project.application.airportapplicationproject.entities.Employee;
 
 @Repository
-public interface WorkerRepository extends JpaRepository<Employee, Long>{
+public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 }

@@ -2,41 +2,50 @@ package com.project.application.airportapplicationproject.services;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.project.application.airportapplicationproject.DTOs.FunctionDTO;
 import com.project.application.airportapplicationproject.entities.Function;
+import com.project.application.airportapplicationproject.exceptions.ResourceNotFoundException;
+import com.project.application.airportapplicationproject.repositories.FunctionRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class FunctionServiceImpl implements FunctionService {
 
+	private final FunctionRepository functionRepository;
+	
 	@Override
 	public List<Function> getAllFunctions() {
-		// TODO Auto-generated method stub
-		return null;
+		return functionRepository.findAll();
 	}
 
 	@Override
 	public Function getFunctionById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return functionRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("FunctionService", "id", id));
 	}
 
 	@Override
 	public Function createFunction(FunctionDTO functionDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		ModelMapper mapper = new ModelMapper();
+		Function function = mapper.map(functionDTO, Function.class);
+		return functionRepository.save(function);
 	}
 
 	@Override
 	public Function updateFunction(Long id, FunctionDTO functionDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		Function function = functionRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("FunctionService", "id", id));
+		function.setName(functionDTO.getName());
+		function.setMinimumSalary(functionDTO.getMinimumSalary());
+		return functionRepository.save(function);
 	}
 
 	@Override
-	public void deleteFunction() {
-		// TODO Auto-generated method stub
-
+	public void deleteFunction(Long id) {
+		Function function = functionRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("FunctionService", "id", id));
+		functionRepository.delete(function);
 	}
 }

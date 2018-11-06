@@ -2,41 +2,51 @@ package com.project.application.airportapplicationproject.services;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.project.application.airportapplicationproject.DTOs.CourseDTO;
 import com.project.application.airportapplicationproject.entities.Course;
+import com.project.application.airportapplicationproject.exceptions.ResourceNotFoundException;
+import com.project.application.airportapplicationproject.repositories.CourseRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
 
+	private final CourseRepository courseRepository;
+	
 	@Override
 	public List<Course> getAllCourses() {
-		// TODO Auto-generated method stub
-		return null;
+		return courseRepository.findAll();
 	}
 
 	@Override
 	public Course getCourseById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return courseRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("CourseService", "id", id));
 	}
 
 	@Override
 	public Course createCourse(CourseDTO courseDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		ModelMapper mapper = new ModelMapper();
+		Course course = mapper.map(courseDTO, Course.class);
+		return courseRepository.save(course);
 	}
 
 	@Override
 	public Course updateCourse(Long id, CourseDTO courseDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		Course course = courseRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("CourseService", "id", id));
+		course.setArrivalDate(courseDTO.getArrivalDate());
+		course.setDepartureDate(courseDTO.getDepartureDate());
+		course.setAvailablePlaces(courseDTO.getAvailablePlaces());
+		return courseRepository.save(course);
 	}
 
 	@Override
 	public void deleteCourse(Long id) {
-		// TODO Auto-generated method stub
-
+		Course course = courseRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("CourseService", "id", id));
+		courseRepository.delete(course);
 	}
 }

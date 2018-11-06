@@ -1,12 +1,18 @@
 package com.project.application.airportapplicationproject.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,7 +23,7 @@ import lombok.Setter;
 @Getter
 @EqualsAndHashCode
 @NoArgsConstructor
-public class Employee {
+public class Employee implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -32,7 +38,15 @@ public class Employee {
 	@Setter
 	private BigDecimal salary;
 	
-	// FK person id
+	@Setter
+	@OneToOne(	cascade=CascadeType.ALL,
+				fetch=FetchType.LAZY)
+	@JoinColumn(name="person_fk")
+	private Person person;
 	
-	// FK function id
+	@Setter
+	@ManyToOne(	cascade=CascadeType.ALL,
+				fetch=FetchType.LAZY)
+	@JoinColumn(name="function_fk")
+	private Function function;	
 }

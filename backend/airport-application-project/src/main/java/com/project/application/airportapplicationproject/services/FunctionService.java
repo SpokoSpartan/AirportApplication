@@ -15,5 +15,5 @@ public interface FunctionService {
 	
 	Function updateFunction(Long id, FunctionDTO functionDTO);
 	
-	void deleteFunction();
+	void deleteFunction(Long id);
 }

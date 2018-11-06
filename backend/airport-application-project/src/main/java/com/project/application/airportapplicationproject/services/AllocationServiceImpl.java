@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 import com.project.application.airportapplicationproject.DTOs.AllocationDTO;
 import com.project.application.airportapplicationproject.entities.Allocation;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
 public class AllocationServiceImpl implements AllocationService {
-
+	
 	@Override
 	public List<Allocation> getAllAllocations() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

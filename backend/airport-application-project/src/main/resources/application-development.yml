@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:oracle:thin:@156.17.43.90:1521:xe
-    username: pwr_17_18_L_016234942
-    password: supersilnehaslo
+    username: pwr_17_18_L_016235902
+    password: WojtasKradnieBazy666
   jpa:
     properties:
       hibernate:

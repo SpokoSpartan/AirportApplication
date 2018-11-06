@@ -1,11 +1,17 @@
 package com.project.application.airportapplicationproject.entities;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,9 +37,36 @@ public class Course {
 	@Setter
 	private Integer availablePlaces;
 
-	// FK start Id (airport)
+	@Setter
+	@ManyToOne(	cascade= {	CascadeType.DETACH,
+							CascadeType.MERGE,
+							CascadeType.PERSIST,
+							CascadeType.REFRESH},
+				fetch=FetchType.LAZY)
+	@JoinColumn(name="start_fk")
+	private Airport startAirport;
 	
-	// FK end id (airport)
+	@Setter
+	@ManyToOne(	cascade= {	CascadeType.DETACH,
+							CascadeType.MERGE,
+							CascadeType.PERSIST,
+							CascadeType.REFRESH},
+				fetch=FetchType.LAZY)
+	@JoinColumn(name="end_fk")
+	private Airport endAirport;
 	
-	// FK plane id
+	@Setter
+	@ManyToOne(	cascade= {	CascadeType.DETACH,
+							CascadeType.MERGE,
+							CascadeType.PERSIST,
+							CascadeType.REFRESH},
+				fetch=FetchType.LAZY)
+	@JoinColumn(name="plane_fk")
+	private Plane plane;
+	
+	@Setter
+	@OneToMany(	cascade=CascadeType.ALL,
+				fetch=FetchType.LAZY)
+	@JoinColumn(name="tick_pk")
+	private List<Ticket> tickets;
 }

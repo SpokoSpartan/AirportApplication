@@ -1,10 +1,12 @@
 package com.project.application.airportapplicationproject.email;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,22 +16,28 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
-@Component
-@RequiredArgsConstructor
+//@Component
+//@RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
-    public JavaMailSender emailSender;
+	@Autowired
+    public JavaMailSender javaMailSender;
 
     @Override
     public void sendSimpleMessage(String to, String subject, String text) {
         try {
             
+        	Logger logger = Logger.getLogger(getClass().getName());
+
         	SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(to);
             message.setSubject(subject);
             message.setText(text);
-
-            emailSender.send(message);
+            
+            logger.warning(message.toString());
+            logger.warning(javaMailSender.toString());
+            
+            javaMailSender.send(message);
         } catch (MailException exception) {
             
         	exception.printStackTrace();
@@ -48,7 +56,7 @@ public class EmailServiceImpl implements EmailService {
         
     	try {
           
-        	MimeMessage message = emailSender.createMimeMessage();
+        	MimeMessage message = javaMailSender.createMimeMessage();
           
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
@@ -59,7 +67,7 @@ public class EmailServiceImpl implements EmailService {
             FileSystemResource file = new FileSystemResource(new File(pathToAttachment));
             helper.addAttachment("Invoice", file);
 
-            emailSender.send(message);
+            javaMailSender.send(message);
         } catch (MessagingException e) {
            
         	e.printStackTrace();
