@@ -2,6 +2,7 @@ package com.project.application.airportapplicationproject.controller;
 
 import java.util.List;
 
+import com.project.application.airportapplicationproject.services.PlaneService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.application.airportapplicationproject.DTOs.PlaneDTO;
 import com.project.application.airportapplicationproject.entities.Plane;
 import com.project.application.airportapplicationproject.exceptions.ResourceNotFoundException;
-import com.project.application.airportapplicationproject.services.PlaneService;
 
 import lombok.RequiredArgsConstructor;
 

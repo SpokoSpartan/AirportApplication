@@ -1,25 +1,27 @@
 package com.project.application.airportapplicationproject.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Getter
-@EqualsAndHashCode
-@NoArgsConstructor
+@Data
 public class Allocation {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@Setter(AccessLevel.NONE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
-	// FK workers id
-	
-	// FK course id
+
+	@OneToOne(	cascade = { CascadeType.MERGE,
+						  	CascadeType.PERSIST},
+				fetch = FetchType.LAZY)
+	@JoinColumn(name = "employee_id")
+	private Employee employee;
+
+	@ManyToOne( cascade = {	CascadeType.MERGE,
+							CascadeType.PERSIST},
+				fetch = FetchType.LAZY)
+	@JoinColumn(name = "course_id")
+	private Course course;
 }

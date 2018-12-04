@@ -13,59 +13,43 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Getter
-@EqualsAndHashCode
-@NoArgsConstructor
+@Data
 public class Course {
 
 	@Id
+	@Setter(AccessLevel.NONE)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 
-	@Setter
 	private Date departureDate;
 	
-	@Setter 
 	private Date arrivalDate;
 	
-	@Setter
 	private Integer availablePlaces;
 
-	@Setter
-	@ManyToOne(	cascade= {	CascadeType.DETACH,
-							CascadeType.MERGE,
-							CascadeType.PERSIST,
-							CascadeType.REFRESH},
+	@ManyToOne(	cascade= {	CascadeType.MERGE,
+							CascadeType.PERSIST},
 				fetch=FetchType.LAZY)
 	@JoinColumn(name="start_fk")
 	private Airport startAirport;
 	
-	@Setter
-	@ManyToOne(	cascade= {	CascadeType.DETACH,
-							CascadeType.MERGE,
-							CascadeType.PERSIST,
-							CascadeType.REFRESH},
+	@ManyToOne(	cascade= {	CascadeType.MERGE,
+							CascadeType.PERSIST},
 				fetch=FetchType.LAZY)
 	@JoinColumn(name="end_fk")
 	private Airport endAirport;
 	
-	@Setter
-	@ManyToOne(	cascade= {	CascadeType.DETACH,
-							CascadeType.MERGE,
-							CascadeType.PERSIST,
-							CascadeType.REFRESH},
+	@ManyToOne(	cascade= {	CascadeType.MERGE,
+							CascadeType.PERSIST},
 				fetch=FetchType.LAZY)
 	@JoinColumn(name="plane_fk")
 	private Plane plane;
 	
-	@Setter
-	@OneToMany(	cascade=CascadeType.ALL,
+	@OneToMany(	cascade= {	CascadeType.MERGE,
+							CascadeType.PERSIST},
 				fetch=FetchType.LAZY)
 	@JoinColumn(name="tick_pk")
 	private List<Ticket> tickets;

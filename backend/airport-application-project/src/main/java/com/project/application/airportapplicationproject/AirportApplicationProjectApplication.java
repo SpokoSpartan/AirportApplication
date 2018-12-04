@@ -4,9 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import com.project.application.airportapplicationproject.configuration.EmailConfiguration;
-import com.project.application.airportapplicationproject.email.EmailServiceImpl;
-
 @SpringBootApplication
 @EnableJpaAuditing
 public class AirportApplicationProjectApplication {
@@ -16,7 +13,7 @@ public class AirportApplicationProjectApplication {
 		/*
 		try {
 			Thread.sleep(5000);
-			EmailServiceImpl esi = new EmailServiceImpl();
+			EmailService esi = new EmailService();
 			String text = "";
 			text += "Witamy! ";
 			text += "Właśnie przed chwila zakupiłeś bezpowrotny bilet bez gier, a już w szczególności doty! ";

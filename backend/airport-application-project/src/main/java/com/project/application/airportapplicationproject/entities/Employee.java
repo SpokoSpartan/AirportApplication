@@ -3,50 +3,49 @@ package com.project.application.airportapplicationproject.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 
 @Entity
-@Getter
-@EqualsAndHashCode
-@NoArgsConstructor
+@Data
 public class Employee implements Serializable{
-	
+
 	@Id
+	@Setter(AccessLevel.NONE)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
-	
-	@Setter
+
 	private Date hireDate;
 
-	@Setter
 	private Date fireDate;
-	
-	@Setter
+
+	private String password;
+
 	private BigDecimal salary;
-	
-	@Setter
-	@OneToOne(	cascade=CascadeType.ALL,
+
+	@OneToOne(	cascade = { CascadeType.PERSIST,
+				CascadeType.MERGE,
+				CascadeType.REMOVE},
 				fetch=FetchType.LAZY)
 	@JoinColumn(name="person_fk")
 	private Person person;
-	
-	@Setter
-	@ManyToOne(	cascade=CascadeType.ALL,
-				fetch=FetchType.LAZY)
+
+	@ManyToOne(	cascade = { CascadeType.PERSIST,
+			CascadeType.MERGE,
+			CascadeType.REMOVE},
+			fetch=FetchType.LAZY)
 	@JoinColumn(name="function_fk")
-	private Function function;	
+	private Function function;
+
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = {	CascadeType.DETACH,
+					CascadeType.MERGE  })
+	@JoinTable(name = "employee_roles",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "employee_id"))
+	private List<Role> roles;
 }

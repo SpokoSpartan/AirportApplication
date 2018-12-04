@@ -2,18 +2,37 @@ package com.project.application.airportapplicationproject.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.project.application.airportapplicationproject.DTOs.AllocationDTO;
 import com.project.application.airportapplicationproject.entities.Allocation;
 
-public interface AllocationService {
+import lombok.RequiredArgsConstructor;
 
-	List<Allocation> getAllAllocations();
+@Service
+public class AllocationService {
 	
-	Allocation getAllocationById(Long id);
-	
-	Allocation createAllocation(AllocationDTO allocationDTO);
-	
-	Allocation updateAllocation(Long id, AllocationDTO allocationDTO);
-	
-	void deleteAllocation(Long id);
+	public List<Allocation> getAllAllocations() {
+		return null;
+	}
+
+	public Allocation getAllocationById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Allocation createAllocation(AllocationDTO allocationDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Allocation updateAllocation(Long id, AllocationDTO allocationDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void deleteAllocation(Long id) {
+		// TODO Auto-generated method stub
+
+	}
 }

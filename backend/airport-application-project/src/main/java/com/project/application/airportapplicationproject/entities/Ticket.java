@@ -11,30 +11,28 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Getter
-@EqualsAndHashCode
-@NoArgsConstructor
+@Data
 public class Ticket {
 
 	@Id
+	@Setter(AccessLevel.NONE)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 
-	@Setter
 	private Date saleDate;
-	
-	@Setter
+
 	@ManyToOne(	cascade= {	CascadeType.DETACH,
-							CascadeType.MERGE,
-							CascadeType.PERSIST,
-							CascadeType.REFRESH},
+							CascadeType.PERSIST},
 				fetch=FetchType.LAZY)
 	@JoinColumn(name="client_fk")
-	private Person person;
+	private Client client;
+
+	@ManyToOne( cascade = { CascadeType.MERGE,
+							CascadeType.PERSIST},
+				fetch = FetchType.LAZY)
+	@JoinColumn(name = "course_pk")
+	private Course course;
 }
