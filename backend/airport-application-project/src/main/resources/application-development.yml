@@ -1,13 +1,27 @@
 spring:
   datasource:
-    url: jdbc:oracle:thin:@156.17.43.90:1521:xe
-    username: pwr_17_18_L_016235902
-    password: WojtasKradnieBazy666
+    url: jdbc:postgresql://192.168.99.100:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.Oracle12cDialect
-        ddl-auto: update
-    open-in-view: false
+        hbm2ddl:
+          auto: create-drop
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+        ddl-auto: create-drop
+        jdbc:
+          lob:
+            non_contextual_creation: true
+      properties:
+        higernate:
+          temp:
+            use_jdbc_metadata_defaults: false
+    open-in-view: true
+  servlet:
+    multipart:
+      max-file-size: 200KB
+      max-request-size: 200KB
 server:
   port: 8080
