@@ -22,7 +22,7 @@ import java.util.Arrays;
 public class EmailController {
 
     private final EmailService emailService;
-
+/*
     @PostMapping(Mappings.CREATE)
     public ResponseEntity sendEmail(@RequestBody @Valid Email email, BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
@@ -35,4 +35,5 @@ public class EmailController {
         }
         return ResponseEntity.ok().body(new MessageInfo(true, Arrays.asList("Email sent successfully")));
     }
+    */
 }

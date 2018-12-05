@@ -53,4 +53,7 @@ public class Course {
 				fetch=FetchType.LAZY)
 	@JoinColumn(name="tick_pk")
 	private List<Ticket> tickets;
+
+	@OneToMany( mappedBy = "course")
+	private List<Allocation> allocations;
 }

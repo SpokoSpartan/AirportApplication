@@ -2,20 +2,19 @@ package com.project.application.airportapplicationproject.DTOs;
 
 import java.math.BigDecimal;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Setter
-@Getter
-@ToString
+import javax.validation.constraints.NotBlank;
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class FunctionDTO {
 
+	@NotBlank(message = "Please specify the name of function")
 	private String name;
+
+	@NotBlank(message = "Please specify the minimum salary")
 	private BigDecimal minimumSalary;
 
 }

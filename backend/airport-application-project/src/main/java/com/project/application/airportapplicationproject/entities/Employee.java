@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 
 @Entity
@@ -19,6 +20,7 @@ public class Employee implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 
+	@CreationTimestamp
 	private Date hireDate;
 
 	private Date fireDate;

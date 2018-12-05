@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Data
@@ -22,6 +23,7 @@ public class Ticket {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 
+	@CreationTimestamp
 	private Date saleDate;
 
 	@ManyToOne(	cascade= {	CascadeType.DETACH,

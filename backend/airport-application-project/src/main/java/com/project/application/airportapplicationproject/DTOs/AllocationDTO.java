@@ -1,16 +1,15 @@
 package com.project.application.airportapplicationproject.DTOs;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.project.application.airportapplicationproject.entities.Employee;
+import lombok.*;
 
-@Setter
-@Getter
-@ToString
+import javax.validation.constraints.NotNull;
+
+@Data
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 public class AllocationDTO {
 
+    @NotNull(message = "Please specify the employee")
+    private Employee employee;
 }

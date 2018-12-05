@@ -35,7 +35,6 @@ public class EmployeeService {
 	public Employee updateEmployee(Long id, EmployeeDTO employeeDTO) {
 		Employee employee = employeeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("EmploueeService", "id", id));
 		employee.setFireDate(employeeDTO.getFireDate());
-		employee.setHireDate(employeeDTO.getHireDate());
 		employee.setSalary(employeeDTO.getSalary());
 		return employeeRepository.save(employee);
 	}

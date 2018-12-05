@@ -34,7 +34,6 @@ public class TicketService {
 
 	public Ticket updateTicket(Long id, TicketDTO ticketDTO) {
 		Ticket ticket = ticketRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("TicketService", "id", id));
-		ticket.setSaleDate(ticketDTO.getSaleDate());
 		return ticketRepository.save(ticket);
 	}
 

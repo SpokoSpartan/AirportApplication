@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MessageInfo {
 
+    private Object object;
     private Boolean success;
     private List<String> message;
 
@@ -19,7 +20,7 @@ public class MessageInfo {
         if(bindingResult.hasErrors()){
             List<String> errorsList = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
-            return new MessageInfo(false, errorsList);
+            return new MessageInfo(null, false, errorsList);
         }
         return null;
     }

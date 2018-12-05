@@ -1,19 +1,19 @@
 package com.project.application.airportapplicationproject.DTOs;
 
-import java.util.Date;
+import com.project.application.airportapplicationproject.entities.Client;
+import com.project.application.airportapplicationproject.entities.Course;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import javax.validation.constraints.NotNull;
 
-@Setter
-@Getter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TicketDTO {
 
-	private Date saleDate;
+	@NotNull(message = "Please specify the course")
+	private Course course;
+
+	@NotNull(message = "Please specify the client")
+	private Client client;
 }

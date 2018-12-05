@@ -14,4 +14,5 @@ public class Mappings {
     public static final String REMOVE = "/remove/{id}";
 
     public static final String EMAIL = "/email";
+    public static final String AIRPORT = "/airport";
 }

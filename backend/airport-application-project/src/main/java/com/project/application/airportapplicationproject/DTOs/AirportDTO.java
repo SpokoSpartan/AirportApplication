@@ -1,18 +1,17 @@
 package com.project.application.airportapplicationproject.DTOs;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Setter
-@Getter
-@ToString
+import javax.validation.constraints.NotEmpty;
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AirportDTO {
 
+	@NotEmpty(message = "City name can't be empty")
 	private String city;
+
+	@NotEmpty(message = "Airport name can't be empty")
 	private String name;
 }
