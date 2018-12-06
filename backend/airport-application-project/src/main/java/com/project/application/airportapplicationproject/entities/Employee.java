@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,11 +16,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Data
-public class Employee implements Serializable{
+public class Employee implements Serializable {
 
 	@Id
 	@Setter(AccessLevel.NONE)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
 	@CreationTimestamp
@@ -25,10 +28,14 @@ public class Employee implements Serializable{
 
 	private Date fireDate;
 
+	@NotBlank(message = "Please specify the password")
+	@Size(min = 7 , message = "Password should contain at least 7 characters length")
 	private String password;
 
+	@NotNull(message = "Please specify the salary")
 	private BigDecimal salary;
 
+	@NotNull(message = "Please specify the person")
 	@OneToOne(	cascade = { CascadeType.PERSIST,
 				CascadeType.MERGE,
 				CascadeType.REMOVE},
@@ -36,7 +43,8 @@ public class Employee implements Serializable{
 	@JoinColumn(name="person_fk")
 	private Person person;
 
-	@ManyToOne(	cascade = { CascadeType.PERSIST,
+	@NotNull(message = "Please specify the function")
+	@ManyToOne(cascade = { CascadeType.PERSIST,
 			CascadeType.MERGE,
 			CascadeType.REMOVE},
 			fetch=FetchType.LAZY)

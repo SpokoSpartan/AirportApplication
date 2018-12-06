@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +15,7 @@ public class FunctionDTO {
 	@NotBlank(message = "Please specify the name of function")
 	private String name;
 
-	@NotBlank(message = "Please specify the minimum salary")
+	@NotNull(message = "Please specify the minimum salary")
 	private BigDecimal minimumSalary;
 
 }

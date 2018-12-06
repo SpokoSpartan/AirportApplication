@@ -1,7 +1,10 @@
 package com.project.application.airportapplicationproject.services;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
+import com.project.application.airportapplicationproject.utils.MessageInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -12,38 +15,52 @@ import com.project.application.airportapplicationproject.repositories.PlaneRepos
 
 import lombok.RequiredArgsConstructor;
 
+import javax.validation.ConstraintViolationException;
+
 @Service
 @RequiredArgsConstructor
 public class PlaneService {
 
 	private final PlaneRepository planeRepository;
-	
+
+	Logger logger = Logger.getLogger(getClass().getName());
+
 	public List<Plane> getAllPlanes() {
 		return planeRepository.findAll();
 	}
 
 	public Plane getPlaneById(Long id) {
-		return planeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("PlaneRepository", "id", id));
+		return planeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("plane"));
 	}
 
-	public Plane createPlane(PlaneDTO planeDTO) {
+	public MessageInfo createPlane(PlaneDTO planeDTO) {
 		ModelMapper mapper = new ModelMapper();
 		Plane plane = mapper.map(planeDTO, Plane.class);
-		return planeRepository.save(plane);
+		return savePlane(plane , "Plane created successfully");
 	}
 
-	public Plane updatePlane(Long id, PlaneDTO planeDTO) {
-		Plane plane = planeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("PlaneRepository", "id", id));
+	public MessageInfo updatePlane(Long id, PlaneDTO planeDTO) {
+		Plane plane = planeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("plane"));
 		plane.setCapacity(planeDTO.getCapacity());
 		plane.setManufacturer(planeDTO.getManufacturer());
 		plane.setVersion(planeDTO.getVersion());
 		plane.setNumberOfHostess(planeDTO.getNumberOfHostess());
 		plane.setNumberOfPilots(planeDTO.getNumberOfPilots());
-		return planeRepository.save(plane);
+		return savePlane(plane, "Plane with ID = " + id.toString() + " created successfully");
 	}
 
 	public void deletePlane(Long id) {
-		Plane plane = planeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("PlaneRepository", "id", id));
+		Plane plane = planeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("plane"));
 		planeRepository.delete(plane);
+	}
+
+	private MessageInfo savePlane(Plane plane, String defaultMessage){
+		try {
+			plane = planeRepository.save(plane);
+		}
+		catch (ConstraintViolationException exc){
+			return MessageInfo.getErrors(exc);
+		}
+		return new MessageInfo(plane, true, Arrays.asList(defaultMessage));
 	}
 }

@@ -15,4 +15,10 @@ public class Mappings {
 
     public static final String EMAIL = "/email";
     public static final String AIRPORT = "/airport";
+    public static final String CLIENT = "/client";
+    public static final String COURSE ="/course";
+    public static final String EMPLOYEE = "/employee";
+    public static final String FUNCTION = "/function";
+    public static final String PLANE = "/plane";
+    public static final String TICKET = "/ticket";
 }

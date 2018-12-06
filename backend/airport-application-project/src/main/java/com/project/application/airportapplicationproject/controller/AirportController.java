@@ -32,16 +32,18 @@ public class AirportController {
     @PostMapping(Mappings.CREATE)
     public MessageInfo createAirport(@RequestBody @Valid AirportDTO airportDTO, BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
-        return errors != null ? errors : new MessageInfo(airportService.createAirport(airportDTO), true,
-                Arrays.asList("Airport created successfully"));
+        if(errors != null)
+            return errors;
+        return airportService.createAirport(airportDTO);
     }
 
     @PostMapping(Mappings.UPDATE)
     public MessageInfo updateAirport(@PathVariable Long id, @RequestBody @Valid AirportDTO airportDTO,
                                      BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
-        return errors != null ? errors : new MessageInfo(airportService.updateAirport(id, airportDTO), true,
-                Arrays.asList("Airport with ID = " + id.toString() + " created successfully"));
+        if(errors != null)
+            return errors;
+        return airportService.updateAirport(id, airportDTO);
     }
 
     @DeleteMapping(Mappings.REMOVE)

@@ -1,7 +1,9 @@
 package com.project.application.airportapplicationproject.services;
 
+import java.util.Arrays;
 import java.util.List;
 
+import com.project.application.airportapplicationproject.utils.MessageInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import com.project.application.airportapplicationproject.exceptions.ResourceNotF
 import com.project.application.airportapplicationproject.repositories.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
+
+import javax.validation.ConstraintViolationException;
 
 @Service
 @RequiredArgsConstructor
@@ -23,24 +27,36 @@ public class EmployeeService {
 	}
 
 	public Employee getEmployeeById(Long id) {
-		return employeeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("EmploueeService", "id", id));
+		return employeeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("employee"));
 	}
 
-	public Employee createEmployee(EmployeeDTO employeeDTO) {
+	public MessageInfo createEmployee(EmployeeDTO employeeDTO) {
 		ModelMapper mapper = new ModelMapper();
 		Employee employee = mapper.map(employeeDTO, Employee.class);
-		return employeeRepository.save(employee);
+		return saveEmployee(employee, "Employee created succesfully");
 	}
 
-	public Employee updateEmployee(Long id, EmployeeDTO employeeDTO) {
-		Employee employee = employeeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("EmploueeService", "id", id));
+	public MessageInfo updateEmployee(Long id, EmployeeDTO employeeDTO) {
+		Employee employee = employeeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("employee"));
 		employee.setFireDate(employeeDTO.getFireDate());
 		employee.setSalary(employeeDTO.getSalary());
-		return employeeRepository.save(employee);
+		employee.setFunction(employeeDTO.getFunction());
+		employee.setPerson(employeeDTO.getPerson());
+		return saveEmployee(employee, "Employee with ID = " + id.toString() + "updated successfully");
 	}
 
 	public void deleteEmployee(Long id) {
-		Employee employee = employeeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("EmploueeService", "id", id));
+		Employee employee = employeeRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("employee"));
 		employeeRepository.delete(employee);
+	}
+
+	private MessageInfo saveEmployee(Employee employee, String defaultMessage){
+		try {
+			employee = employeeRepository.save(employee);
+		}
+		catch (ConstraintViolationException exc){
+			return MessageInfo.getErrors(exc);
+		}
+		return new MessageInfo(employee, true, Arrays.asList(defaultMessage));
 	}
 }
