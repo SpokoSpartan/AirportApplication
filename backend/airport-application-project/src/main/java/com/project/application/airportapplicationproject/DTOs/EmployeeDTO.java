@@ -7,6 +7,7 @@ import com.project.application.airportapplicationproject.entities.Function;
 import com.project.application.airportapplicationproject.entities.Person;
 import lombok.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -26,9 +27,11 @@ public class EmployeeDTO {
 	@NotNull(message = "Please specify the salary")
 	private BigDecimal salary;
 
+	@Valid
 	@NotNull(message = "Please specify the person")
 	private Person person;
 
+	@Valid
 	@NotNull(message = "Please specify the function")
 	private Function function;
 

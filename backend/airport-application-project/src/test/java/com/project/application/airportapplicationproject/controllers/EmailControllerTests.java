@@ -49,7 +49,6 @@ public class EmailControllerTests {
         mockMvc = MockMvcBuilders.standaloneSetup(emailController).build();
         email.setSubject("subject");
         email.setMessageContext("message context");
-        email.setRecipients(Arrays.asList("email@gmail.com"));
     }
 
     @Test
@@ -86,31 +85,5 @@ public class EmailControllerTests {
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.success", Matchers.is(false)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.contains("The subject of the message is required")));
-    }
-
-    @Test
-    public void whenEmailAddressIsIncorrectThenReturnBadRequest() throws Exception {
-        email.setRecipients(Arrays.asList("badEmail"));
-        String jsonRequest = mapper.writeValueAsString(email);
-        mockMvc.perform(post(BASE_URL + Mappings.CREATE)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.success", Matchers.is(false)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.contains("Incorrect email format")));
-    }
-
-    @Test
-    public void whenEmailAddressesAreNullThenReturnBadRequest() throws Exception {
-        email.setRecipients(null);
-        String jsonRequest = mapper.writeValueAsString(email);
-        mockMvc.perform(post(BASE_URL + Mappings.CREATE)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.success", Matchers.is(false)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.contains("You must provide at least one email")));
     }
 }

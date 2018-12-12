@@ -4,6 +4,7 @@ import com.project.application.airportapplicationproject.entities.Client;
 import com.project.application.airportapplicationproject.entities.Course;
 import lombok.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -11,9 +12,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class TicketDTO {
 
+	@Valid
 	@NotNull(message = "Please specify the course")
 	private Course course;
 
+	@Valid
 	@NotNull(message = "Please specify the client")
 	private Client client;
 }

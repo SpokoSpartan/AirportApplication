@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class ClientDTO {
 
+    @Valid
     @NotNull(message = "Please specify the person")
     private Person person;
 }

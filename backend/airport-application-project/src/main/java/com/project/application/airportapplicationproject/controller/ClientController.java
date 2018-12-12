@@ -7,6 +7,7 @@ import com.project.application.airportapplicationproject.utils.Mappings;
 import com.project.application.airportapplicationproject.utils.MessageInfo;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,41 +23,45 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping(Mappings.GET_ALL)
-    public MessageInfo getAllClients(){
+    public ResponseEntity getAllClients(){
         List<Client> clients = clientService.getAllClients();
         for(Client client : clients){
             Hibernate.initialize(client.getPerson());
         }
-        return new MessageInfo(clients, true, Arrays.asList("List of clients"));
+        return ResponseEntity.ok().body(new MessageInfo(clients, true, Arrays.asList("List of clients")));
     }
 
     @GetMapping(Mappings.GET_ONE)
-    public MessageInfo getClientById(@PathVariable Long id) {
+    public ResponseEntity getClientById(@PathVariable Long id) {
         Client client = clientService.getClientById(id);
         Hibernate.initialize(client.getPerson());
-        return new MessageInfo(client, true, Arrays.asList("Clint of ID = " + id.toString()));
+        return ResponseEntity.ok().body(new MessageInfo(client, true,
+                Arrays.asList("Clint of ID = " + id.toString())));
     }
 
     @PostMapping(Mappings.CREATE)
-    public MessageInfo createClient(@RequestBody @Valid ClientDTO clientDTO, BindingResult bindingResult) {
+    public ResponseEntity createClient(@RequestBody @Valid ClientDTO clientDTO, BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
         if(errors != null)
-            return errors;
-        return clientService.createClient(clientDTO);
+            return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.ok().body(new MessageInfo(clientService.createClient(clientDTO), true,
+                Arrays.asList("Client created successfully")));
     }
 
     @PostMapping(Mappings.UPDATE)
-    public MessageInfo updateClient(@PathVariable Long id, @RequestBody @Valid ClientDTO clientDTO,
+    public ResponseEntity updateClient(@PathVariable Long id, @RequestBody @Valid ClientDTO clientDTO,
                                      BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
         if(errors != null)
-            return errors;
-        return clientService.updateClient(id, clientDTO);
+            return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.ok().body(new MessageInfo(clientService.updateClient(id, clientDTO), true,
+                Arrays.asList("Client with ID = " + id.toString() + " updated successfully")));
     }
 
     @DeleteMapping(Mappings.REMOVE)
-    public MessageInfo deleteClient(@PathVariable Long id) {
+    public ResponseEntity deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
-        return new MessageInfo(null, true, Arrays.asList("Client with id = " + id.toString() + "removed succesfully"));
+        return ResponseEntity.ok().body(new MessageInfo(null, true,
+                Arrays.asList("Client with id = " + id.toString() + "removed succesfully")));
     }
 }

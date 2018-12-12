@@ -8,6 +8,7 @@ import com.project.application.airportapplicationproject.entities.Allocation;
 import com.project.application.airportapplicationproject.entities.Plane;
 import lombok.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
@@ -27,15 +28,19 @@ public class CourseDTO {
 	@NotNull(message = "Please specify the number of available places")
 	private Integer availablePlaces;
 
+	@Valid
 	@NotNull(message = "Please specify the plane")
 	private Plane plane;
 
+	@Valid
 	@NotNull(message = "Please specify the start airport")
 	private Airport startAirport;
 
+	@Valid
 	@NotNull(message = "Please specify the and airport")
 	private Airport endAirport;
 
+	@Valid
 	@NotNull(message = "Please specify the allocations")
 	private List<Allocation> allocations;
 }

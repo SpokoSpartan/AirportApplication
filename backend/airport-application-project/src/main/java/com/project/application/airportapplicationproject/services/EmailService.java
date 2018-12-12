@@ -5,28 +5,33 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.scheduling.annotation.Async;
+
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EmailService{
-    
-    private final JavaMailSender javaMailSender;
+public class EmailService {
 
-    @Retryable(
-            value = MailException.class,
-            maxAttempts = 5,
-            backoff = @Backoff(delay = 1000 * 60 * 10))
-    public void sendSimpleMessage(Email email) {
+    private final SendEmailService sendEmailService;
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email.getRecipients().toArray(new String[0]));
-        message.setSubject(email.getSubject());
-        message.setText(email.getMessageContext());
+    @Async
+    public void sendSimpleMessage(Email email, List<String> recipients) {
 
-        javaMailSender.send(message);
+        if(recipients.size()  > 0) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(recipients.toArray(new String[0]));
+            message.setSubject(email.getSubject());
+            message.setText(email.getMessageContext());
+            try {
+                sendEmailService.send(message);
+            }
+            catch(MailException e){
+                // attempts to send an email failed
+                // skip the problem
+            }
+        }
     }
 }

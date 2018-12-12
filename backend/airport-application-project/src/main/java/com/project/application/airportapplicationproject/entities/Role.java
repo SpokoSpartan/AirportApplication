@@ -3,15 +3,14 @@ package com.project.application.airportapplicationproject.entities;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class Role implements Serializable {
 
     @Id

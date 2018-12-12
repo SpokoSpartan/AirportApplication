@@ -5,6 +5,7 @@ import com.project.application.airportapplicationproject.services.EmployeeServic
 import com.project.application.airportapplicationproject.utils.Mappings;
 import com.project.application.airportapplicationproject.utils.MessageInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,35 +20,40 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping(Mappings.GET_ALL)
-    public MessageInfo getAllEmployees(){
-        return new MessageInfo(employeeService.getAllEmployees(), true, Arrays.asList("List of employees"));
+    public ResponseEntity getAllEmployees(){
+        return ResponseEntity.ok().body(new MessageInfo(employeeService.getAllEmployees(), true,
+                Arrays.asList("List of employees")));
     }
 
     @GetMapping(Mappings.GET_ONE)
-    public MessageInfo getEmployeeById(@PathVariable Long id) {
-        return new MessageInfo(employeeService.getEmployeeById(id), true, Arrays.asList("Employee of ID = " + id.toString()));
+    public ResponseEntity getEmployeeById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new MessageInfo(employeeService.getEmployeeById(id), true,
+                Arrays.asList("Employee of ID = " + id.toString())));
     }
 
     @PostMapping(Mappings.CREATE)
-    public MessageInfo createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO, BindingResult bindingResult) {
+    public ResponseEntity createEmployee(@RequestBody @Valid EmployeeDTO employeeDTO, BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
         if(errors != null)
-            return errors;
-        return employeeService.createEmployee(employeeDTO);
+            return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.ok().body(new MessageInfo(employeeService.createEmployee(employeeDTO), true,
+                Arrays.asList("Employee created succesfully")));
     }
 
     @PostMapping(Mappings.UPDATE)
-    public MessageInfo updateEmployee(@PathVariable Long id, @RequestBody @Valid EmployeeDTO employeeDTO,
+    public ResponseEntity updateEmployee(@PathVariable Long id, @RequestBody @Valid EmployeeDTO employeeDTO,
                                      BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
         if(errors != null)
-            return errors;
-        return employeeService.updateEmployee(id, employeeDTO);
+            return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.ok().body(new MessageInfo(employeeService.updateEmployee(id, employeeDTO), true,
+                Arrays.asList("Employee with ID = " + id.toString() + "updated successfully")));
     }
 
     @DeleteMapping(Mappings.REMOVE)
-    public MessageInfo deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
-        return new MessageInfo(null, true, Arrays.asList("Employee with id = " + id.toString() + "removed succesfully"));
+        return ResponseEntity.ok().body(new MessageInfo(null, true,
+                Arrays.asList("Employee with id = " + id.toString() + "removed succesfully")));
     }
 }

@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ResourceNotFoundException extends RuntimeException {
 
 	public ResourceNotFoundException(String resourceName) {
-		super("Sorry. We can't find this ");
+		super("Sorry. We can't find this " + resourceName);
 	}
 }

@@ -1,11 +1,11 @@
 package com.project.application.airportapplicationproject.controller;
 
 import java.util.Arrays;
-import java.util.List;
 
 import com.project.application.airportapplicationproject.services.PlaneService;
 import com.project.application.airportapplicationproject.utils.Mappings;
 import com.project.application.airportapplicationproject.utils.MessageInfo;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.application.airportapplicationproject.DTOs.PlaneDTO;
-import com.project.application.airportapplicationproject.entities.Plane;
-import com.project.application.airportapplicationproject.exceptions.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,35 +29,40 @@ public class PlaneController {
     private final PlaneService planeService;
 
     @GetMapping(Mappings.GET_ALL)
-    public MessageInfo getAllPlanes(){
-        return new MessageInfo(planeService.getAllPlanes(), true, Arrays.asList("List of planes"));
+    public ResponseEntity getAllPlanes(){
+        return ResponseEntity.ok().body(new MessageInfo(planeService.getAllPlanes(), true,
+                Arrays.asList("List of planes")));
     }
 
     @GetMapping(Mappings.GET_ONE)
-    public MessageInfo getPlaneById(@PathVariable Long id) {
-        return new MessageInfo(planeService.getPlaneById(id), true, Arrays.asList("Plane of ID = " + id.toString()));
+    public ResponseEntity getPlaneById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new MessageInfo(planeService.getPlaneById(id), true,
+                Arrays.asList("Plane of ID = " + id.toString())));
     }
 
     @PostMapping(Mappings.CREATE)
-    public MessageInfo createPlane(@RequestBody @Valid PlaneDTO employeeDTO, BindingResult bindingResult) {
+    public ResponseEntity createPlane(@RequestBody @Valid PlaneDTO employeeDTO, BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
         if(errors != null)
-            return errors;
-        return planeService.createPlane(employeeDTO);
+            return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.ok().body(new MessageInfo(planeService.createPlane(employeeDTO), true,
+                Arrays.asList("Plane created successfully")));
     }
 
     @PostMapping(Mappings.UPDATE)
-    public MessageInfo updatePlane(@PathVariable Long id, @RequestBody @Valid PlaneDTO planeDTO,
+    public ResponseEntity updatePlane(@PathVariable Long id, @RequestBody @Valid PlaneDTO planeDTO,
                                       BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
         if(errors != null)
-            return errors;
-        return planeService.updatePlane(id, planeDTO);
+            return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.ok().body(new MessageInfo(planeService.updatePlane(id, planeDTO), true,
+                Arrays.asList("Plane with ID = " + id.toString() + " created successfully")));
     }
 
     @DeleteMapping(Mappings.REMOVE)
-    public MessageInfo deletePlane(@PathVariable Long id) {
+    public ResponseEntity deletePlane(@PathVariable Long id) {
         planeService.deletePlane(id);
-        return new MessageInfo(null, true, Arrays.asList("Plane with id = " + id.toString() + "removed succesfully"));
+        return ResponseEntity.ok().body(new MessageInfo(null, true,
+                Arrays.asList("Plane with id = " + id.toString() + "removed succesfully")));
     }
 }

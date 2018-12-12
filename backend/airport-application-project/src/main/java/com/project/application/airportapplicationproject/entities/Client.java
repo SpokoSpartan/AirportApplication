@@ -3,6 +3,7 @@ package com.project.application.airportapplicationproject.entities;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class Client implements Serializable {
 
     @Id

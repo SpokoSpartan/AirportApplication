@@ -1,17 +1,16 @@
 package com.project.application.airportapplicationproject.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class Airport implements Serializable {
 	
 	@Id

@@ -4,11 +4,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class Allocation implements Serializable {
 	
 	@Id

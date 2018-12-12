@@ -5,11 +5,7 @@ import lombok.Data;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindingResult;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
@@ -27,14 +23,5 @@ public class MessageInfo {
             return new MessageInfo(null, false, errorsList);
         }
         return null;
-    }
-
-    public static MessageInfo getErrors(ConstraintViolationException exc){
-        List<String> errors = new ArrayList<>();
-        Set<ConstraintViolation<?>> violationSet = exc.getConstraintViolations();
-        for(ConstraintViolation constraintViolation : violationSet){
-            errors.add(constraintViolation.getMessageTemplate());
-        }
-        return new MessageInfo(null, false, errors);
     }
 }

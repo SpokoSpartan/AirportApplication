@@ -5,6 +5,7 @@ import com.project.application.airportapplicationproject.services.FunctionServic
 import com.project.application.airportapplicationproject.utils.Mappings;
 import com.project.application.airportapplicationproject.utils.MessageInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,35 +20,40 @@ public class FunctionController {
     private final FunctionService functionService;
 
     @GetMapping(Mappings.GET_ALL)
-    public MessageInfo getAllFunctions(){
-        return new MessageInfo(functionService.getAllFunctions(), true, Arrays.asList("List of functions"));
+    public ResponseEntity getAllFunctions(){
+        return ResponseEntity.ok().body(new MessageInfo(functionService.getAllFunctions(), true,
+                Arrays.asList("List of functions")));
     }
 
     @GetMapping(Mappings.GET_ONE)
-    public MessageInfo getFunctionById(@PathVariable Long id) {
-        return new MessageInfo(functionService.getFunctionById(id), true, Arrays.asList("Function of ID = " + id.toString()));
+    public ResponseEntity getFunctionById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new MessageInfo(functionService.getFunctionById(id), true,
+                Arrays.asList("Function of ID = " + id.toString())));
     }
 
     @PostMapping(Mappings.CREATE)
-    public MessageInfo createFunction(@RequestBody @Valid FunctionDTO functionDTO, BindingResult bindingResult) {
+    public ResponseEntity createFunction(@RequestBody @Valid FunctionDTO functionDTO, BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
         if(errors != null)
-            return errors;
-        return functionService.createFunction(functionDTO);
+            return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.ok().body(new MessageInfo(functionService.createFunction(functionDTO), true,
+                Arrays.asList("Function created successfully")));
     }
 
     @PostMapping(Mappings.UPDATE)
-    public MessageInfo updateFunction(@PathVariable Long id, @RequestBody @Valid FunctionDTO functionDTO,
+    public ResponseEntity updateFunction(@PathVariable Long id, @RequestBody @Valid FunctionDTO functionDTO,
                                       BindingResult bindingResult) {
         MessageInfo errors = MessageInfo.getErrors(bindingResult);
         if(errors != null)
-            return errors;
-        return functionService.updateFunction(id, functionDTO);
+            return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.ok().body(new MessageInfo(functionService.updateFunction(id, functionDTO), true,
+                Arrays.asList("Function with ID = " + id.toString() + " updated successfully")));
     }
 
     @DeleteMapping(Mappings.REMOVE)
-    public MessageInfo deleteFunction(@PathVariable Long id) {
+    public ResponseEntity deleteFunction(@PathVariable Long id) {
         functionService.deleteFunction(id);
-        return new MessageInfo(null, true, Arrays.asList("Function with id = " + id.toString() + "removed succesfully"));
+        return ResponseEntity.ok().body(new MessageInfo(null, true,
+                Arrays.asList("Function with id = " + id.toString() + "removed succesfully")));
     }
 }
