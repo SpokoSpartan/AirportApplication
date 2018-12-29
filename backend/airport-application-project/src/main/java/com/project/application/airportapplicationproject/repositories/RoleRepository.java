@@ -1,11 +1,9 @@
 package com.project.application.airportapplicationproject.repositories;
 
+import com.project.application.airportapplicationproject.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.project.application.airportapplicationproject.entities.Employee;
-
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long>{
-    Employee findEmployeeByPersonId(Long id);
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }
