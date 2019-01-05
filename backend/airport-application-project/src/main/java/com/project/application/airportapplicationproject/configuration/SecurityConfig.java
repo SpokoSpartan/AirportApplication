@@ -18,18 +18,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final EmployeeService employeeService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.//antMatcher("/").authorizeRequests().anyRequest().
-                httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(Mappings.API_VERSION + Mappings.COURSE + "/**").hasRole("EMPLOYEE")
-                .and()
-                .csrf().disable()
-                .headers()
-                .frameOptions().disable();
+        http.csrf().disable();
     }
+
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {

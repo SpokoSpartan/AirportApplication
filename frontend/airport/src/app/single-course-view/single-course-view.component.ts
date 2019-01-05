@@ -5,11 +5,11 @@ import {MessageInfo} from '../../models/MessageInfo';
 import {Course} from '../../models/Course';
 
 @Component({
-  selector: 'app-pricing',
-  templateUrl: './pricing.component.html',
-  styleUrls: ['./pricing.component.css']
+  selector: 'app-single-course-view',
+  templateUrl: './single-course-view.component.html',
+  styleUrls: ['./single-course-view.component.css']
 })
-export class PricingComponent implements OnInit {
+export class SingleCourseViewComponent implements OnInit {
 
   course: Course;
   constructor(private route: ActivatedRoute, private http: RestService) { }

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>Jumbotron Template for Bootstrap</title>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">Strona domowa</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Zakup biletu <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Dla pracowników<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Szukaj" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Szukaj</button>
+    </form>
+  </div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3">Zakup biletu!</h1>
+    <p>Nasze lotnisko jest jednym z najpopularniejszych w okolicy.
+      Cechujemy się przede wszystkim bezpiecznym przewozem osób cywilnych w samolotach o maksymalnej objętości 40 pasażerów.
+      Zapewniamy także atrakcyjne ceny oraz okazjonalne promocje.
+      Nasze lotnisko cięgle się rozwija w celu zapewnienia coraz to lepszych warunków podróży oraz zmniejszenia jej czasu.</p>
+  </div>
+</div>
+
+<div class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Lotnisko Początkowe</th>
+      <th scope="col">Lotnisko Końcowe</th>
+      <th scope="col">Data odlotu</th>
+      <th scope="col">Dostępne miejsca</th>
+      <th scope="col">Linki</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let object of allCourser">
+    <tr>
+      <th scope="row">{{object.id}}</th>
+      <td>{{object.startAirport.city + ' (' + object.startAirport.name + ')'}}</td>
+      <td>{{object.endAirport.city + ' (' + object.endAirport.name + ')'}}</td>
+      <td>{{object.departureDate | date: 'dd/MM/yyyy-hh:mm'}}</td>
+      <td>{{object.availablePlaces}}</td>
+      <td><a href="single-course-view/{{object.id}}">Informacje</a></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr class="mb-4">
+
+<footer class="container">
+  <p>&copy; AirportCompany 2018-2019</p>
+</footer>
+
+</body>
+</html>

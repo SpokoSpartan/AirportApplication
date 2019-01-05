@@ -1,4 +1,3 @@
-
 element.style {
 }
 :root {
@@ -41,9 +40,6 @@ html {
 }
 *, ::after, ::before {
   box-sizing: border-box;
-}
-html {
-  -webkit-locale: "en";
 }
 html {
   display: block;

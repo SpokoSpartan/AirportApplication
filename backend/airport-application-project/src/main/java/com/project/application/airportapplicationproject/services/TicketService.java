@@ -1,7 +1,13 @@
 package com.project.application.airportapplicationproject.services;
 
+import java.util.Arrays;
 import java.util.List;
 
+import com.project.application.airportapplicationproject.DTOs.Email;
+import com.project.application.airportapplicationproject.entities.Client;
+import com.project.application.airportapplicationproject.entities.Course;
+import com.project.application.airportapplicationproject.repositories.CourseRepository;
+import com.project.application.airportapplicationproject.utils.EmailToClientTemplate;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +23,8 @@ import lombok.RequiredArgsConstructor;
 public class TicketService {
 
 	private final TicketRepository ticketRepository;
+	private final CourseRepository courseRepository;
+	private final EmailService emailService;
 	
 	public List<Ticket> getAllTickets() {
 		return ticketRepository.findAll();
@@ -27,15 +35,28 @@ public class TicketService {
 	}
 
 	public Ticket createTicket(TicketDTO ticketDTO) {
-		ModelMapper mapper = new ModelMapper();
-		Ticket ticket = mapper.map(ticketDTO, Ticket.class);
+		Client client = ticketDTO.getClient();
+		Course course = courseRepository.findById(ticketDTO.getCourseId()).orElseThrow( ()->
+				new ResourceNotFoundException("course"));
+		Ticket ticket = new Ticket();
+		ticket.setCourse(course);
+		ticket.setClient(client);
+		ticket.setTravelClass(ticketDTO.getTravelClass());
+
+		emailService.sendSimpleMessage(EmailToClientTemplate.getEmail(ticket),
+				Arrays.asList(client.getPerson().getEmail()));
+
 		return ticketRepository.save(ticket);
 	}
 
 	public Ticket updateTicket(Long id, TicketDTO ticketDTO) {
 		Ticket ticket = ticketRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("ticket"));
-		ticket.setClient(ticketDTO.getClient());
-		ticket.setCourse(ticketDTO.getCourse());
+		Client client = ticketDTO.getClient();
+		Course course = courseRepository.findById(ticketDTO.getCourseId()).orElseThrow( ()->
+				new ResourceNotFoundException("course"));
+		ticket.setCourse(course);
+		ticket.setClient(client);
+		ticket.setTravelClass(ticketDTO.getTravelClass());
 		return ticketRepository.save(ticket);
 	}
 

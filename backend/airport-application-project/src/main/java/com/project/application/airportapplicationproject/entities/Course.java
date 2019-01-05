@@ -1,6 +1,7 @@
 package com.project.application.airportapplicationproject.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class Course implements Serializable {
 
 	@NotNull(message = "Please specify the number of available places")
 	private Integer availablePlaces;
+
+	@NotNull(message = "Please specify the price")
+	private BigDecimal price;
 
 	@NotNull(message = "Please specify the start airport")
 	@ManyToOne(	cascade= {	CascadeType.MERGE,

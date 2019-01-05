@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>Jumbotron Template for Bootstrap</title>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">Strona domowa</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Zakup biletu <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Dla pracowników<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Szukaj" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Szukaj</button>
+    </form>
+  </div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3">Informacje o kursie!</h1>
+    <p>Nasze lotnisko jest jednym z najpopularniejszych w okolicy.
+      Cechujemy się przede wszystkim bezpiecznym przewozem osób cywilnych w samolotach o maksymalnej objętości 40 pasażerów.
+      Zapewniamy także atrakcyjne ceny oraz okazjonalne promocje.
+      Nasze lotnisko cięgle się rozwija w celu zapewnienia coraz to lepszych warunków podróży oraz zmniejszenia jej czasu.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 order-md-2">
+      <h4 class="mb-3">Samolot</h4>
+      <form class="needs-validation" novalidate>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Liczba miejsc</th>
+            <td>{{course.plane.capacity}}</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="col">Producent</th>
+            <td>{{course.plane.manufacturer}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Wersja</th>
+            <td>{{course.plane.version}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Liczba pilotów</th>
+            <td>{{course.plane.numberOfPilots}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Liczba stuardess</th>
+            <td>{{course.plane.numberOfHostess}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </form>
+      <hr class="mb-4">
+    </div>
+    <div class="col-md-8 order-md-1">
+      <div class="row">
+        <div class="col-md-6 order-md-1">
+          <h4 class="mb-3">Lotnisko początkowe</h4>
+          <form class="needs-validation" novalidate>
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Miasto</th>
+                <th scope="col">Nazwa</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th>{{course.startAirport.city}}</th>
+                <td>{{course.startAirport.name}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </form>
+          <hr class="mb-4">
+        </div>
+        <div class="col-md-6 order-md-2">
+          <h4 class="mb-3">Lotnisko końcowe</h4>
+          <form class="needs-validation" novalidate>
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Miasto</th>
+                <th scope="col">Nazwa</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th>{{course.endAirport.city}}</th>
+                <td>{{course.endAirport.name}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </form>
+          <hr class="mb-4">
+        </div>
+
+        <div class="col-md-12 order-md-3">
+          <h4 class="mb-3">Najważniejsze dane</h4>
+          <form class="needs-validation" novalidate>
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Liczba dostępnych miejsc</th>
+                <th scope="col">Data odlotu</th>
+                <th scope="col">Data przylotu</th>
+                <th scope="col">Cena</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{course.availablePlaces}}</td>
+                <td>{{course.departureDate | date: 'dd/MM/yyyy-hh:mm'}}</td>
+                <td>{{course.arrivalDate | date: 'dd/MM/yyyy-hh:mm'}}</td>
+                <th>{{(course.price * 1.0).toFixed(2) + 'zł'}}</th>
+              </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p><a class="btn btn-primary btn-lg btn-block" href="/pricing/{{course.id}}" role="button">Przejdź do wyboru klasy i płatności &raquo;</a></p>
+</div>
+
+<hr class="mb-4">
+<footer class="container">
+  <p>&copy; AirportCompany 2018-2019</p>
+</footer>
+
+</body>
+</html>

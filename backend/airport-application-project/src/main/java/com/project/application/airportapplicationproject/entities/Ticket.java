@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.*;
@@ -20,8 +21,12 @@ public class Ticket implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
+	@Setter(AccessLevel.NONE)
 	@CreationTimestamp
 	private Date saleDate;
+
+	@NotBlank(message = "Please specify the class")
+	private String travelClass;
 
 	@NotNull(message = "Please specify the client")
 	@ManyToOne(	cascade= {	CascadeType.DETACH,
