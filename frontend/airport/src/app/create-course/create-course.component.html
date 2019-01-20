@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>Checkout example for Bootstrap</title>
+</head>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="home">Strona domowa</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="ticket-selection">Zakup biletu <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Dla pracowników<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Szukaj" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Szukaj</button>
+    </form>
+  </div>
+</nav>
+
+<body class="bg-light">
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3">Dodawanie kursu!</h1>
+    <p>W tym miejscu możesz dodać kurs. Podczas dodawania możesz wybrać lotnicko z aktualnie obsługiwanych przez naszą firmę.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div *ngIf="areDataActual">
+    <form class="needs-validation" (ngSubmit)="createCourse(courseParams)" [formGroup]="courseParams">
+      <div class="row">
+        <div class="col-md-6 order-md-1">
+          <div class="form-container">
+
+            <h4 class="mb-3">Dane kursu</h4>
+
+            <label for="startAirport">Lotnisko początkowe</label>
+            <select class="form-control" id="startAirport" formControlName="startAirport">
+              <option *ngFor="let airport of airports">
+                {{airport.city}} - {{airport.name}}
+              </option>
+            </select>
+
+            <hr>
+
+            <label for="endAirport">Lotnisko końcowe</label>
+            <select class="form-control" id="endAirport" formControlName="endAirport">
+              <option *ngFor="let airport of airports">
+                {{airport.city}} - {{airport.name}}
+              </option>
+            </select>
+
+            <hr>
+
+            <label for="plane">Samolot</label>
+            <select class="form-control" id="plane" formControlName="plane">
+              <option *ngFor="let plane of planes">
+                {{plane.manufacturer}} - {{plane.version}} - Pojemność({{plane.capacity}})
+              </option>
+            </select>
+
+            <hr>
+
+            <label for="plane">Pilot</label>
+            <select class="form-control" id="employee" formControlName="plane">
+              <option *ngFor="let employee of employees">
+                {{employee.person.name}} - {{employee.person.surname}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-6 order-md-2">
+
+          <h4 class="mb-3">Podstawowe informacje na temat daty odlotu</h4>
+          <div class="form-container">
+            <div class="row">
+              <div class="col-md-6 order-md-1" formControlName="departureDate">
+                <label for="startAirport">Data odlotu</label>
+                <div class="form-group row">
+                  <label for="example-date-input" class="col-2 col-form-label"></label>
+                  <div class="col-10">
+                    <input class="form-control" type="date" value="" id="example-date-input">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 order-md-2" formControlName="departureTime">
+                <label for="startAirport">Godzina odlotu</label>
+                <div class="form-group row">
+                  <label for="departureDate" class="col-2 col-form-label"></label>
+                  <div class="col-10">
+                    <input class="form-control" type="time" value="" id="departureDate">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+           <hr>
+
+          <h4 class="mb-3">Podstawowe informacje na temat daty przylotu</h4>
+          <div class="form-container">
+            <div class="row">
+              <div class="col-md-6 order-md-1" formControlName="arrivalDate">
+                <label for="startAirport">Data przylotu</label>
+                <div class="form-group row">
+                  <label for="arrivalDate" class="col-2 col-form-label"></label>
+                  <div class="col-10">
+                    <input class="form-control" type="date" value="" id="arrivalDate">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 order-md-2" formControlName="arrivalTime">
+                <label for="startAirport">Godzina przylotu</label>
+                <div class="form-group row">
+                  <label for="example-time-input" class="col-2 col-form-label"></label>
+                  <div class="col-10">
+                    <input class="form-control" type="time" value="" id="example-time-input">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <h4 class="mb-3">Pozostałe informacje</h4>
+          <div class="form-container">
+            <div class="row">
+              <div class="col-md-6 order-md-1" formControlName="price">
+                <label for="startAirport">Cena biletu</label>
+                <input type="text" class="form-control" id="price" placeholder="Cena"  formControlName="price" required>
+                <div class="invalid-feedback col-10">
+                  Cena jest jest wymagana.
+                </div>
+              </div>
+
+              <div class="col-md-6 order-md-2" formControlName="availablePlaces">
+                <label for="startAirport">Liczba dostępnych miejsc</label>
+                <input type="text" class="form-control" id="availablePlaces" placeholder="Dostępne miejsca"  formControlName="availablePlaces" required>
+                <div class="invalid-feedback col-10">
+                  Ten parametr jest wymagany.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Dodaj kurs</button>
+    </form>
+  </div>
+  <hr>
+</div>
+<footer class="container">
+  <p>&copy; AirportCompany 2018-2019</p>
+</footer>
+
+</body>
+</html>
