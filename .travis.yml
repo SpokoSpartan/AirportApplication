@@ -3,10 +3,9 @@ jdk:
   - oraclejdk8
 install: true
 
-services:
-  - docker
 before_install:
   - npm install -g @angular/cli
+  
   stages:
   - name: test
 
@@ -14,9 +13,10 @@ jobs:
   include:
       - stage: test
         script:
-         - cd backend/nokia-innovative-project
+         - cd backend/airport-application-project
          - chmod +x mvnw
          - mvn test
+         
 cache:
    directories:
     - $HOME/.m2
