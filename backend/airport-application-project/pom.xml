@@ -11,6 +11,9 @@
 	<name>airport-application-project</name>
 	<description>An application that supports airport services created for the database2 project.</description>
 
+	<!-- Author Wojciech Spoton -->
+
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
