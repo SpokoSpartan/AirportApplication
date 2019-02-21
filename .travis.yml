@@ -16,7 +16,7 @@ jobs:
          - mvn test
       - stage: build
         script:
-         - cd frontend
+         - cd frontend/airport
          - npm i
          - ng build --prod
          - cd ../airport-application-project
