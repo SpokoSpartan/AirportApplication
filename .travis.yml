@@ -16,9 +16,9 @@ jobs:
          - mvn test
       - stage: build
         script:
-         - cd frontend/airport
+         - cd frontend
          - npm i
-         - ng build --prod
+         - ng build
          - cd
-         - cd ../backend/airport-application-project
+         - cd backend/airport-application-project
          - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
