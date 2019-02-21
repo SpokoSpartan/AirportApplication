@@ -8,6 +8,7 @@ before_install:
   
   stages:
   - name: test
+  - name: build
 
 jobs:
   include:
@@ -16,6 +17,14 @@ jobs:
          - cd backend/airport-application-project
          - chmod +x mvnw
          - mvn test
+         
+      - stage: build
+        script:
+         - cd frontend
+         - npm i
+         - ng build --prod
+         - cd ../backend/nokia-innovative-project
+         - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
          
 cache:
    directories:
