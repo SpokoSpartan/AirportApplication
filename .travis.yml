@@ -23,7 +23,7 @@ jobs:
          - cd frontend
          - npm i
          - ng build --prod
-         - cd ../backend/nokia-innovative-project
+         - cd ../airport-application-project
          - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
          
 cache:
