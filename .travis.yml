@@ -17,3 +17,6 @@ jobs:
          - cd backend/nokia-innovative-project
          - chmod +x mvnw
          - mvn test
+cache:
+   directories:
+    - $HOME/.m2
