@@ -2,14 +2,11 @@ language: java
 jdk:
   - oraclejdk8
 install: true
-
 before_install:
   - npm install -g @angular/cli
-  
-  stages:
+stages:
   - name: test
   - name: build
-
 jobs:
   include:
       - stage: test
@@ -17,7 +14,6 @@ jobs:
          - cd backend/airport-application-project
          - chmod +x mvnw
          - mvn test
-         
       - stage: build
         script:
          - cd frontend
