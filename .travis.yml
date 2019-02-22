@@ -7,6 +7,8 @@ before_install:
 stages:
   - name: test
   - name: build
+  - name: docker_build
+    if: branch = master
 jobs:
   include:
       - stage: test
@@ -22,3 +24,23 @@ jobs:
          - cd -
          - cd backend/airport-application-project
          - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+         - stage: docker_build
+        script:
+          - cd backend/airport-application-project
+          - mvn package
+          - docker build -t $DOCKER_USERNAME/test:$TAG .
+          - cd -
+          - cd frontend/airport
+          - npm install
+          - npm install @types/node --save-dev
+          - npm run build
+          - docker build -t $DOCKER_USERNAME/test:$TAG .
+          - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+          - docker push $DOCKER_USERNAME/test:$TAG          
+          
+          
+          
+          
+          
+          
+          
