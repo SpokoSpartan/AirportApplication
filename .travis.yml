@@ -19,5 +19,6 @@ jobs:
          - cd frontend/airport
          - npm i
          - ng build
+         - cd ..
          - cd backend/airport-application-project
          - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
