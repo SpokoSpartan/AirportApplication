@@ -12,6 +12,7 @@ import {Course} from '../../models/Course';
 export class SingleCourseViewComponent implements OnInit {
 
   course: Course;
+  coursePrice: string = "0.00"
   constructor(private route: ActivatedRoute, private http: RestService) { }
 
   ngOnInit() {
@@ -22,5 +23,6 @@ export class SingleCourseViewComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     const response: MessageInfo = await this.http.getOne('course/getOne', id);
     this.course = response.object;
+    this.coursePrice = this.course.price;
   }
 }

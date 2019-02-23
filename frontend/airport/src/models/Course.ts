@@ -9,9 +9,9 @@ export class Course {
   startAirport: Airport;
   endAirport: Airport;
   plane: Plane;
-  price: string;
+  price: any;
   constructor(id: number, departureDate: Date, arrivalDate: Date, availablePlaces: number,
-              startAirport: Airport, endAirport: Airport, plane: Plane, price: string) {
+              startAirport: Airport, endAirport: Airport, plane: Plane, price: any) {
     this.id = id;
     this.departureDate = departureDate;
     this.arrivalDate = arrivalDate;
