@@ -12,7 +12,6 @@ import {Course} from '../../models/Course';
 export class SingleCourseViewComponent implements OnInit {
 
   course: Course;
-  coursePrice: string = "0.00"
   constructor(private route: ActivatedRoute, private http: RestService) { }
 
   ngOnInit() {
