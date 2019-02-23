@@ -22,6 +22,5 @@ export class SingleCourseViewComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     const response: MessageInfo = await this.http.getOne('course/getOne', id);
     this.course = response.object;
-    this.coursePrice = this.course.price;
   }
 }
