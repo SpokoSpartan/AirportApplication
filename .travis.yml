@@ -10,7 +10,7 @@ stages:
   - name: docker_build
     if: branch = master
   - name: deploy
-    if: branch = master
+    if: branch = master OR branch = develop
 jobs:
   include:
       - stage: test
@@ -26,7 +26,7 @@ jobs:
          - cd -
          - cd backend/airport-application-project
          - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-         - stage: docker_build
+      - stage: docker_build
         script:
           - cd backend/airport-application-project
           - mvn package
@@ -38,9 +38,9 @@ jobs:
           - npm run build
           - docker build -t $DOCKER_USERNAME/test:$FE_TAG .
           - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-          - docker push $DOCKER_USERNAME/test:$BE_TAG  
-          - docker push $DOCKER_USERNAME/test:$FE_TAG          
-        - stage: deploy
+          - docker push $DOCKER_USERNAME/test:$BE_TAG
+          - docker push $DOCKER_USERNAME/test:$FE_TAG
+      - stage: deploy
         script:
           - curl https://cli-assets.heroku.com/install-standalone.sh | sh
           - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
@@ -57,9 +57,3 @@ jobs:
           - docker push registry.heroku.com/wojtek-froncio-test/web
           - /usr/local/bin/heroku container:release web -a wojtek-bakcio-test
           - /usr/local/bin/heroku container:release web -a wojtek-froncio-test
-          
-          
-          
-          
-          
-          
