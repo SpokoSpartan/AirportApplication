@@ -58,5 +58,6 @@ jobs:
           - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
           - docker push registry.heroku.com/wojtek-bakcio-test/web
           - docker push registry.heroku.com/wojtek-froncio-test/web
+          - /usr/local/bin/heroku docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
           - /usr/local/bin/heroku container:release web -a wojtek-bakcio-test
           - /usr/local/bin/heroku container:release web -a wojtek-froncio-test
