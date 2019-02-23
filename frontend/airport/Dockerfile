@@ -1,5 +1,5 @@
 FROM nginx:alpine
-COPY nginx.conf.prod /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /usr/share/nginx/html
 COPY dist/frontend .
 EXPOSE 4200
