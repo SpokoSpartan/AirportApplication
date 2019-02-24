@@ -1,16 +1,12 @@
 spring:
-  datasource:
-    url: jdbc:postgres://xghonjlapssiry:64e5deb49033e6566b1fb4e9cc2af54e2c3cdfd8db8bcbd5933c8dbef13ec86c@ec2-54-75-230-41.eu-west-1.compute.amazonaws.com:5432/d1p6ujaesqtont
-    username: xghonjlapssiry
-    password: 64e5deb49033e6566b1fb4e9cc2af54e2c3cdfd8db8bcbd5933c8dbef13ec86c
   jpa:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
         hbm2ddl:
-          auto: create-drop
+          auto: update
         dialect: org.hibernate.dialect.PostgreSQL94Dialect
-        ddl-auto: create-drop
+        ddl-auto: update
         jdbc:
           lob:
             non_contextual_creation: true
@@ -23,3 +19,5 @@ spring:
     multipart:
       max-file-size: -1
       max-request-size: -1
+server:
+  port: 8082
