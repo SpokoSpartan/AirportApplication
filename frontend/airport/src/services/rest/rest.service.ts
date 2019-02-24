@@ -3,12 +3,13 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { catchError } from 'rxjs/internal/operators';
 import { Observable, throwError } from 'rxjs/index';
 import { MessageInfo } from '../../models/MessageInfo';
+import {API_URL} from "../../app/config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
-  URL = 'http://localhost:8081/api/v1/';
+  URL = API_URL + '/api/v1/';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
