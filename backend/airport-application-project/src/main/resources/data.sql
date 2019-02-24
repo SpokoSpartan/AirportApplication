@@ -14,10 +14,10 @@ INSERT INTO function (minimum_salary, name)
 VALUES ('1600', 'Admin');
 
 INSERT INTO employee (fire_date, hire_date, password, salary, function_fk, person_fk)
-VALUES ('1994/11/12', null, '$2a$10$w0iOFqPmVyxznT9klwEg4.D2KZfS1GXbmQ2otqqXYGy9IuYVLsPBm', '4400', 1, 1);
+VALUES ('2019-02-23 15:21:20.471804', null, '$2a$10$w0iOFqPmVyxznT9klwEg4.D2KZfS1GXbmQ2otqqXYGy9IuYVLsPBm', '4400', 1, 1);
 
 INSERT INTO employee (fire_date, hire_date, password, salary, function_fk, person_fk)
-VALUES ('1996/11/12', null, '$2a$10$DuvURvIGYl.KgblNUpHUSuuVKRsJmxhv47.53h4T54uvgP0GdOpx2', '4400', 2, 2);
+VALUES ('2019-02-23 15:21:20.471804', null, '$2a$10$DuvURvIGYl.KgblNUpHUSuuVKRsJmxhv47.53h4T54uvgP0GdOpx2', '4400', 2, 2);
 
 INSERT INTO employee_roles (user_id, employee_id) VALUES (1,1);
 INSERT INTO employee_roles (user_id, employee_id) VALUES (2,2);
@@ -50,20 +50,20 @@ VALUES (32, 'Drelichów', 2, 2, 'V4.3');
 
 INSERT INTO course (arrival_date, available_places,
                     departure_date, price, end_fk, plane_fk, start_fk)
-VALUES ('2019/01/02-09:12', 45, '2019/01/02-07:12', '92.80', 2, 1, 1);
+VALUES ('2019-02-23 15:21:20.471804', 45, '2019-02-23 15:21:20.471804', '92.80', 2, 1, 1);
 
 INSERT INTO course (arrival_date, available_places,
                     departure_date, price, end_fk, plane_fk, start_fk)
-VALUES ('2019/01/03-13:12', 21, '2019/01/03-12:12', '32.60', 1, 5, 4);
+VALUES ('2019-02-23 15:21:20.471804', 21, '2019-02-23 15:21:20.471804', '32.60', 1, 5, 4);
 
 INSERT INTO course (arrival_date, available_places,
                     departure_date, price, end_fk, plane_fk, start_fk)
-VALUES ('2019/01/03-11:12', 12, '2019/01/03-10:12', '54.40', 2, 4, 1);
+VALUES ('2019-02-23 15:21:20.471804', 12, '2019-02-23 15:21:20.471804', '54.40', 2, 4, 1);
 
 INSERT INTO course (arrival_date, available_places,
                     departure_date, price, end_fk, plane_fk, start_fk)
-VALUES ('2019/01/07-08:12', 16, '2019/01/07-07:12', '72.80', 2, 5, 2);
+VALUES ('2019-02-23 15:21:20.471804', 16, '2019-02-23 15:21:20.471804', '72.80', 2, 5, 2);
 
 INSERT INTO course (arrival_date, available_places,
                     departure_date, price, end_fk, plane_fk, start_fk)
-VALUES ('2019/01/04-11:12', 29, '2019/01/04-10:12', '67.29', 2, 4, 3);
+VALUES ('2019-02-23 15:21:20.471804', 29, '2019-02-23 15:21:20.471804', '67.29', 2, 4, 3);
