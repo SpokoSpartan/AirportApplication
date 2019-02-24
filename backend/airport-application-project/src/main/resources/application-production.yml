@@ -1,11 +1,16 @@
 spring:
+  datasource:
+    url: jdbc:oracle:thin:@156.17.43.90:1521:xe
+    username: pwr_17_18_L_016235902
+    password: WojtasKradnieBazy666
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    initialization-mode: always
   jpa:
     properties:
       hibernate:
-        enable_lazy_load_no_trans: true
         hbm2ddl:
           auto: create-drop
-        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+        dialect: org.hibernate.dialect.Oracle12cDialect
         ddl-auto: create-drop
         jdbc:
           lob:
@@ -14,7 +19,7 @@ spring:
         higernate:
           temp:
             use_jdbc_metadata_defaults: false
-    open-in-view: false
+    open-in-view: true
   servlet:
     multipart:
       max-file-size: -1
