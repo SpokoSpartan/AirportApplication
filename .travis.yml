@@ -49,15 +49,13 @@ jobs:
           - cd backend/airport-application-project
           - mvn package -DskipTests
           - docker build -t registry.heroku.com/wojtek-bakcio-test/web -f Dockerfile.prod .
+          - docker push registry.heroku.com/wojtek-bakcio-test/web
+          - /usr/local/bin/heroku container:release web -a wojtek-bakcio-test
           - cd -
           - cd frontend/airport
           - npm install
           - npm install @types/node --save-dev
           - ng build --prod
           - docker build -t registry.heroku.com/wojtek-froncio-test/web -f Dockerfile.prod .
-          - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
-          - docker push registry.heroku.com/wojtek-bakcio-test/web
           - docker push registry.heroku.com/wojtek-froncio-test/web
-          - /usr/local/bin/heroku docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
-          - /usr/local/bin/heroku container:release web -a wojtek-bakcio-test
           - /usr/local/bin/heroku container:release web -a wojtek-froncio-test
