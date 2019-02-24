@@ -22,6 +22,7 @@ import java.util.Collections;
 @EnableRetry
 @EnableAsync
 public class AirportApplicationProjectApplication {
+
 	public static void main(String[] args) {	
 		SpringApplication.run(AirportApplicationProjectApplication.class, args);
 	}
