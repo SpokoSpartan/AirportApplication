@@ -5,8 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet author='wojtek' id='change_in_table'
+    <changeSet author='wojtek' id='change'
                runOnChange="false">
+        <validCheckSum>7:18262c5c5851874dff0c954d60b47d59</validCheckSum>
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">select count(1) from information_schema.columns
                 where upper(column_name) = 'NEW_COLUMN' and upper(table_name) = 'AIRPORT'
